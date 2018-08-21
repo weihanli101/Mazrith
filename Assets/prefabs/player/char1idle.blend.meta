@@ -15,6 +15,8 @@ ModelImporter:
     100018: Bone_009
     100020: char
     100022: //RootNode
+    100024: Cube
+    100026: lanturn
     400000: Armature
     400002: Bone
     400004: Bone_001
@@ -27,8 +29,16 @@ ModelImporter:
     400018: Bone_009
     400020: char
     400022: //RootNode
+    400024: Cube
+    400026: lanturn
     2100000: unnamed
+    2300000: Cube
+    2300002: lanturn
+    3300000: Cube
+    3300002: lanturn
     4300000: char
+    4300002: Cube
+    4300004: lanturn
     7400000: Default Take
     7400002: ArmatureAction
     9500000: //RootNode
