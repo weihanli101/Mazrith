@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class characterController : MonoBehaviour {
+public class CharacterController : MonoBehaviour {
     public float speed;
     public Joystick joystick;
 	// Use this for initialization
