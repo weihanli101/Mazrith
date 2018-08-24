@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class FlickerScript : MonoBehaviour
-{
+public class FlickerScript : MonoBehaviour {
     public new Light light;
     public float minIntensity = 0f;
     public float maxIntensity = 1f;
