@@ -19,8 +19,7 @@ public class CharacterController : MonoBehaviour {
         else {
             GetComponent<Animator>().SetBool("isMoving", false);
         }
-        lightDecay();
-    }
+        lightDecay();    }
 
     private void OnCollisionEnter(Collision collision) {
         //reset lightIntensity
