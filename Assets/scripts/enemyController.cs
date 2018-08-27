@@ -5,12 +5,15 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
     public int moveSpeed;
     public float rotationDamping;
+    public float pausePercentage;
     private float timeToChange;
     private float desiredRotation;
+    private float randomSeed;
 
     // Use this for initialization
     void Start() {
         ChangeDirection(false);
+        randomSeed = Random.Range(0, 100);
     }
 
     // Update is called once per frame
@@ -22,7 +25,9 @@ public class EnemyController : MonoBehaviour {
         }
         var desiredRotationQuat = Quaternion.Euler(transform.eulerAngles.x, desiredRotation, transform.eulerAngles.z);
         transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotationQuat, Time.deltaTime * rotationDamping);
-        transform.position += transform.forward * Time.deltaTime * moveSpeed;
+        if(randomSeed <= pausePercentage) {
+            transform.position += transform.forward * Time.deltaTime * moveSpeed;
+        }
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -39,6 +44,7 @@ public class EnemyController : MonoBehaviour {
             desiredRotation = Random.Range(0f, 360f);
         }
         timeToChange = 1.5f;
+        randomSeed = Random.Range(0, 100);
 
     }
 }
