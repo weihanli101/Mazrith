@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour {
     public float pausePercentage;
     public float alertRadius;
     public float alertedMovementSpeed;
+    public GameObject player;
 
     private float timeToChange;
     private float desiredRotation;
@@ -19,14 +20,13 @@ public class EnemyController : MonoBehaviour {
     }
 
     void Update() {
-        foreach(Collider collider in Physics.OverlapSphere(transform.position, alertRadius)) {
-            if(collider.CompareTag("Player")) {
-                isAlerted = true;
-                Vector3 forceDirection = collider.transform.position - transform.position;
-                transform.position += forceDirection.normalized * alertedMovementSpeed * Time.deltaTime;
-            } else {
-                isAlerted = false;
-            }
+        if(Vector3.Distance(this.transform.position, player.GetComponent<Transform>().position) <= alertRadius) {
+            transform.LookAt(player.GetComponent<Transform>());
+            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+            isAlerted = true;
+        }
+        else {
+            isAlerted = false;
         }
         // roaming mode when AI is not alerted
         if(!isAlerted) {
@@ -41,6 +41,7 @@ public class EnemyController : MonoBehaviour {
                 transform.position += transform.forward * Time.deltaTime * moveSpeed;
             }
         }
+        Debug.Log(isAlerted);
     }
 
     private void OnCollisionEnter(Collision collision) {
