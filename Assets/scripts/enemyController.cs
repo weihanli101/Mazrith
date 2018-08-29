@@ -13,17 +13,21 @@ public class EnemyController : MonoBehaviour {
     private float desiredRotation;
     private float randomSeed;
     private bool isAlerted;
+    private bool isMoving;
 
     void Start() {
         ChangeDirection(false);
         randomSeed = Random.Range(0, 100);
+
     }
 
     void Update() {
+        //alerted AI moves towards player
         if(Vector3.Distance(this.transform.position, player.GetComponent<Transform>().position) <= alertRadius) {
             transform.LookAt(player.GetComponent<Transform>());
-            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+            transform.position += transform.forward * alertedMovementSpeed * Time.deltaTime;
             isAlerted = true;
+            isMoving = true;
         }
         else {
             isAlerted = false;
@@ -37,11 +41,20 @@ public class EnemyController : MonoBehaviour {
             }
             var desiredRotationQuat = Quaternion.Euler(transform.eulerAngles.x, desiredRotation, transform.eulerAngles.z);
             transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotationQuat, Time.deltaTime * rotationDamping);
-            if (randomSeed <= pausePercentage) {
+            isMoving = false;
+            if (randomSeed >= pausePercentage) {
+                isMoving = true;
                 transform.position += transform.forward * Time.deltaTime * moveSpeed;
             }
         }
-        Debug.Log(isAlerted);
+
+        //Animations
+        if (isMoving) {
+            GetComponent<Animator>().SetBool("isMoving", true);
+        }
+        else {
+            GetComponent<Animator>().SetBool("isMoving", false);
+        }
     }
 
     private void OnCollisionEnter(Collision collision) {

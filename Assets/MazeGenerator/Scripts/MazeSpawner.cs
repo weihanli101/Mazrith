@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 //<summary>
 //Game object, that creates maze and instantiates it in scene
@@ -27,7 +28,6 @@ public class MazeSpawner : MonoBehaviour {
 	public GameObject GoalPrefab = null;
 
 	private BasicMazeGenerator mMazeGenerator = null;
-
 	void Start () {
 		if (!FullRandom) {
 			Random.seed = RandomSeed;
