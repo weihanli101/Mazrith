@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour {
     public float pausePercentage;
     public float alertRadius;
     public float alertedMovementSpeed;
-    public GameObject player;
+    public GameObject player = null;
 
     private float timeToChange;
     private float desiredRotation;
@@ -18,7 +18,9 @@ public class EnemyController : MonoBehaviour {
     void Start() {
         ChangeDirection(false);
         randomSeed = Random.Range(0, 100);
-
+        if(player == null) {
+            player = GameObject.Find("player");
+        }
     }
 
     void Update() {

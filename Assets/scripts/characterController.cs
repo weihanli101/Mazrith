@@ -4,6 +4,7 @@ public class CharacterController : MonoBehaviour {
     public float speed;
     public Joystick joystick;
     public float playerMaxLightIntensity;
+    public float playerMinLightIntenstiy;
     public float lightDecayRate;
 	
 	// Update is called once per frame
@@ -24,14 +25,14 @@ public class CharacterController : MonoBehaviour {
     private void OnCollisionEnter(Collision collision) {
         //reset lightIntensity
         if (collision.gameObject.CompareTag("lightorb")) {
-            playerMaxLightIntensity = 3;
+            playerMaxLightIntensity = 50;
             Destroy(collision.gameObject);
         }
     }
 
     private void lightDecay() {
         //only detuct till 0
-        if(playerMaxLightIntensity >= 0) {
+        if(playerMaxLightIntensity >= playerMinLightIntenstiy) {
             playerMaxLightIntensity -= lightDecayRate * Time.deltaTime;
         }
     }

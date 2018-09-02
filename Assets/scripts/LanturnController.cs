@@ -5,7 +5,7 @@ using UnityEngine;
 public class LanturnController : MonoBehaviour {
 
     public new Light light;
-    public float minIntensity = 0f;
+    public float minIntensity = 3f;
     public float maxIntensity;
     public int smoothing = 5;
 
@@ -30,7 +30,7 @@ public class LanturnController : MonoBehaviour {
             return;
         //get the max intensity from the CharacterControllerScript
         CharacterController characterControllerScript = player.GetComponent<CharacterController>();
-        maxIntensity = characterControllerScript.playerMaxLightIntensity;
+        light.range = characterControllerScript.playerMaxLightIntensity;
         while (smoothQueue.Count >= smoothing) {
             lastSum -= smoothQueue.Dequeue();
         }

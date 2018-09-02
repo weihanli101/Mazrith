@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 public class SpawnerScript : MonoBehaviour {
     public float orbSpawnTime;
     public GameObject lightOrb;
+
     private Boolean isOrbSpawned;
     private GameObject lightOrbClone;
     // Use this for initialization
