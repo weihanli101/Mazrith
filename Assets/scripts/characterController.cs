@@ -6,9 +6,19 @@ public class CharacterController : MonoBehaviour {
     public float playerMaxLightIntensity;
     public float playerMinLightIntenstiy;
     public float lightDecayRate;
-	
-	// Update is called once per frame
-	void Update () {
+
+    //Audio
+    public AudioClip hitAudioClip;
+    private AudioSource audioSource;
+
+    //Particles
+    public GameObject bloodParticles;
+
+    private void Start() {
+        audioSource = GetComponent<AudioSource>();
+    }
+    // Update is called once per frame
+    void Update () {
 		Vector3 movementVector = (Vector3.right * joystick.Horizontal + Vector3.forward * joystick.Vertical);
         
         // move only on non-zero vector
@@ -27,6 +37,10 @@ public class CharacterController : MonoBehaviour {
         if (collision.gameObject.CompareTag("lightorb")) {
             playerMaxLightIntensity = 50;
             Destroy(collision.gameObject);
+        }
+        if(collision.gameObject.CompareTag("enemy")) {
+            bloodParticles.GetComponent<ParticleSystem>().Play();
+            audioSource.PlayOneShot(hitAudioClip);
         }
     }
 

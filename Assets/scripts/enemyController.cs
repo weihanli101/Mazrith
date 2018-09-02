@@ -8,7 +8,6 @@ public class EnemyController : MonoBehaviour {
     public float alertRadius;
     public float alertedMovementSpeed;
     public GameObject player = null;
-
     private float timeToChange;
     private float desiredRotation;
     private float randomSeed;
