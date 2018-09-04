@@ -59,6 +59,9 @@ public class GameControllerScript : MonoBehaviour {
         }
         finalScoreText.text = "Score: " + score.ToString();
         highScoreText.text = "Best: " + highScore.ToString();
+
+        //freeze player postion but enable rotation
+        
     }
 
     public void onRestart() {

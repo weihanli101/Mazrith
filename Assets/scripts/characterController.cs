@@ -19,6 +19,7 @@ public class CharacterController : MonoBehaviour {
     //Particles
     public GameObject bloodParticles;
     public GameObject explosionParticles;
+    public GameObject deathBloodParticles;
 
     private void Start() {
         audioSource = GetComponent<AudioSource>();
@@ -26,18 +27,23 @@ public class CharacterController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-		Vector3 movementVector = (Vector3.right * joystick.Horizontal + Vector3.forward * joystick.Vertical);
-        
-        // move only on non-zero vector
-        if(movementVector != Vector3.zero) {
-            GetComponent<Animator>().SetBool("isMoving", true);
-            transform.rotation = Quaternion.LookRotation(movementVector);
-            transform.Translate(movementVector * speed * Time.deltaTime, Space.World);
+        if(health <= 0) {
+            onDeath();
         }
         else {
-            GetComponent<Animator>().SetBool("isMoving", false);
+            Vector3 movementVector = (Vector3.right * joystick.Horizontal + Vector3.forward * joystick.Vertical);
+            // move only on non-zero vector
+            if (movementVector != Vector3.zero) {
+                GetComponent<Animator>().SetBool("isMoving", true);
+                transform.rotation = Quaternion.LookRotation(movementVector);
+                transform.Translate(movementVector * speed * Time.deltaTime, Space.World);
+            }
+            else {
+                GetComponent<Animator>().SetBool("isMoving", false);
+            }
         }
-        lightDecay();    }
+        lightDecay();
+    }
 
     private void OnCollisionEnter(Collision collision) {
         //reset lightIntensity
@@ -76,6 +82,15 @@ public class CharacterController : MonoBehaviour {
                 enemyRb.AddExplosionForce(AttackPower, explosionPos, AttackRadius, AttackDuration);
             }
         }
+    }
+
+    private void onDeath() {
+        deathBloodParticles.GetComponent<ParticleSystem>().Play();
+        GetComponent<Animator>().SetBool("isMoving", false);
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<CapsuleCollider>().enabled = true;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
     }
 
 }
