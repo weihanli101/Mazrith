@@ -6,6 +6,7 @@ public class CharacterController : MonoBehaviour {
     public float playerMaxLightIntensity;
     public float playerMinLightIntenstiy;
     public float lightDecayRate;
+    public int health;
 
     //Audio
     public AudioClip hitAudioClip;
@@ -16,6 +17,7 @@ public class CharacterController : MonoBehaviour {
 
     private void Start() {
         audioSource = GetComponent<AudioSource>();
+        health = 100;
     }
     // Update is called once per frame
     void Update () {
@@ -38,9 +40,11 @@ public class CharacterController : MonoBehaviour {
             playerMaxLightIntensity = 50;
             Destroy(collision.gameObject);
         }
+        //hit enemy: lose health + play hit audio + play blood particles
         if(collision.gameObject.CompareTag("enemy")) {
             bloodParticles.GetComponent<ParticleSystem>().Play();
             audioSource.PlayOneShot(hitAudioClip);
+            health -= 10;
         }
     }
 
